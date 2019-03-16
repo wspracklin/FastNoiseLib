@@ -40,17 +40,26 @@ namespace FastNoise
         [MethodImplAttribute(FN_INLINE)]
         public static Vector3 GetVectorTimesFrequencyFor(Vector3 vec) => new Vector3(vec.x * Frequency, vec.y * Frequency, vec.z * Frequency);
 
+        [MethodImplAttribute(FN_INLINE)]
+        public static int FloatCast2Int(double f)
+        {
+            var i = BitConverter.DoubleToInt64Bits(f);
+
+            return (int)(i ^ (i >> 32));
+        }
+
         private static readonly Vector2[] GRAD_2D = {
         new Vector2(-1,-1), new Vector2( 1,-1), new Vector2(-1, 1), new Vector2( 1, 1),
         new Vector2( 0,-1), new Vector2(-1, 0), new Vector2( 0, 1), new Vector2( 1, 0),
-    };
+        };
 
         private static readonly Vector3[] GRAD_3D = {
         new Vector3( 1, 1, 0), new Vector3(-1, 1, 0), new Vector3( 1,-1, 0), new Vector3(-1,-1, 0),
         new Vector3( 1, 0, 1), new Vector3(-1, 0, 1), new Vector3( 1, 0,-1), new Vector3(-1, 0,-1),
         new Vector3( 0, 1, 1), new Vector3( 0,-1, 1), new Vector3( 0, 1,-1), new Vector3( 0,-1,-1),
         new Vector3( 1, 1, 0), new Vector3( 0,-1, 1), new Vector3(-1, 1, 0), new Vector3( 0,-1,-1),
-    };
+        };
+
         //public void CalculateFractalBounding()
         //{
         //    double amp = m_gain;
