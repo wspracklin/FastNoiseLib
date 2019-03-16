@@ -1,4 +1,4 @@
-﻿namespace FastNoise
+﻿namespace FastNoise.Noises
 {
     public interface IWhiteNoise
     {

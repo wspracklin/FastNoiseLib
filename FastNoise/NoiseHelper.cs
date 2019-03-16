@@ -5,9 +5,12 @@ namespace FastNoise
 {
     public class NoiseHelper
     {
-        private const Int16 FN_INLINE = 256;
-        private int m_octaves = 3;
-	    private static double  m_frequency = 0.01;
+        public const Int16 FN_INLINE = 256;
+        public static int Octaves = 3;
+        public static double Frequency = 0.01;
+        public static double Lacunarity = 2.0;
+        public static double Gain = 0.5;
+	    public static double FractalBounding;
 
         [MethodImplAttribute(FN_INLINE)]
         public static int FastFloor(double f) { return (f >= 0 ? (int)f : (int)f - 1); }
@@ -32,7 +35,7 @@ namespace FastNoise
         }
 
         [MethodImplAttribute(FN_INLINE)]
-        public static Vector3 GetVectorTimesFrequencyFor(Vector3 vec) => new Vector3(vec.x * m_frequency, vec.y * m_frequency, vec.z * m_frequency);
+        public static Vector3 GetVectorTimesFrequencyFor(Vector3 vec) => new Vector3(vec.x * Frequency, vec.y * Frequency, vec.z * Frequency);
 
         private static readonly Vector2[] GRAD_2D = {
         new Vector2(-1,-1), new Vector2( 1,-1), new Vector2(-1, 1), new Vector2( 1, 1),
