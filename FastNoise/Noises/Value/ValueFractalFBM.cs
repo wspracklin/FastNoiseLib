@@ -1,7 +1,7 @@
 ﻿using FastNoise.Interpolators;
 using System;
 
-namespace FastNoise.Noises
+namespace FastNoise
 {
     public class ValueFractalFBM : INoise
     {

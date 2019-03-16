@@ -1,5 +1,5 @@
 ﻿using FastNoise.Interpolators;
-using FastNoise.Noises;
+using FastNoise;
 
 namespace FastNoise.Settings
 {

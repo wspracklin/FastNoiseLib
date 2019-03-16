@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FastNoise.Noises.Cellular
+namespace FastNoise
 {
     public class NaturalCellularNoise : INoise
     {
@@ -13,12 +13,12 @@ namespace FastNoise.Noises.Cellular
             _settings = settings;
         }
 
-        public double GetNoise(Vector2 vec)
+        public float GetNoise(Vector2 vec)
         {
             throw new NotImplementedException();
         }
 
-        public double GetNoise(Vector3 vec)
+        public float GetNoise(Vector3 vec)
         {
             throw new NotImplementedException();
         }

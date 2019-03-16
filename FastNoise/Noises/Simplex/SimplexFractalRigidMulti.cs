@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FastNoise.Noises.Simplex
+namespace FastNoise.Simplex
 {
     public class SimplexFractalRigidMulti : INoise
     {
@@ -13,16 +13,16 @@ namespace FastNoise.Noises.Simplex
             _settings = settings;
         }
 
-        public double GetNoise(Vector2 vec)
+        public float GetNoise(Vector2 vec)
         {
             throw new NotImplementedException();
         }
 
-        public double GetNoise(Vector3 vec)
+        public float GetNoise(Vector3 vec)
         {
             int seed = _settings.Seed;
-            double sum = 1 - Math.Abs(new SimplexNoise(_settings).GetNoise(vec));
-            double amp = 1;
+            float sum = 1 - Math.Abs(new SimplexNoise(_settings).GetNoise(vec));
+            float amp = 1;
 
             var originalSeed = _settings.Seed;
 

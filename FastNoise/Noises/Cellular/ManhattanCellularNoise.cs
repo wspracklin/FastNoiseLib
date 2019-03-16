@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FastNoise.Noises.Cellular
+namespace FastNoise
 {
     public class ManhattanCellularNoise : INoise
     {

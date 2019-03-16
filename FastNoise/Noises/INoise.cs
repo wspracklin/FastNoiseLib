@@ -1,4 +1,4 @@
-﻿namespace FastNoise.Noises
+﻿namespace FastNoise
 {
     public interface INoise
     {
