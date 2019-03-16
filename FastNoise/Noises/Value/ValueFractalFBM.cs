@@ -26,14 +26,17 @@ namespace FastNoise.Noises
 
             double amp = 1;
 
+            var originalSeed = _noiseSettings.Seed;
+
             for (int i = 1; i < _noiseSettings.Octaves; i++)
             {
                 vec *= _noiseSettings.Lacunarity;
                 amp *= _noiseSettings.Gain;
                 _noiseSettings.Seed++;
                 sum += new ValueNoise(_interpolator, _noiseSettings).GetNoise(vec) * amp;
-                _noiseSettings.Seed--;
             }
+
+            _noiseSettings.Seed = originalSeed;
 
             return sum * _noiseSettings.FractalBounding;
         }
