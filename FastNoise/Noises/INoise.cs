@@ -2,7 +2,7 @@
 {
     public interface INoise
     {
-        double GetNoise(int seed, Vector2 vec);
-        double GetNoise(int seed, Vector3 vec);
+        double GetNoise(Vector2 vec);
+        double GetNoise(Vector3 vec);
     }
 }

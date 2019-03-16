@@ -12,6 +12,10 @@ namespace FastNoise
         public static double Gain = 0.5;
 	    public static double FractalBounding;
 
+        public const double F3 = 1.0 / 3.0;
+        public const double G3 = 1.0 / 6.0;
+        public const double G33 = G3 * 3 - 1;
+
         [MethodImplAttribute(FN_INLINE)]
         public static int FastFloor(double f) { return (f >= 0 ? (int)f : (int)f - 1); }
 

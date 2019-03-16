@@ -3,24 +3,26 @@ using System;
 
 namespace FastNoise.Noises
 {
-    public class SingleValueFractalFBM : INoise
+    public class ValueFractalFBM : INoise
     {
         private IInterpolator _interpolator;
         private INoiseSettings _noiseSettings;
 
-        public SingleValueFractalFBM(IInterpolator interpolator, INoiseSettings noiseSettings)
+        public ValueFractalFBM(IInterpolator interpolator, INoiseSettings noiseSettings)
         {
             _interpolator = interpolator;
             _noiseSettings = noiseSettings;
         }
-        public double GetNoise(int seed, Vector2 vec)
+        public double GetNoise(Vector2 vec)
         {
             throw new NotImplementedException();
         }
 
-        public double GetNoise(int seed, Vector3 vec)
+        public double GetNoise(Vector3 vec)
         {
-            double sum = new SingleValueNoise(_interpolator, _noiseSettings).GetNoise(seed, vec);
+            var seed = _noiseSettings.Seed;
+
+            double sum = new ValueNoise(_interpolator, _noiseSettings).GetNoise(vec);
 
             double amp = 1;
 
@@ -28,7 +30,9 @@ namespace FastNoise.Noises
             {
                 vec *= _noiseSettings.Lacunarity;
                 amp *= _noiseSettings.Gain;
-                sum += new SingleValueNoise(_interpolator, _noiseSettings).GetNoise(++seed, vec) * amp;
+                _noiseSettings.Seed++;
+                sum += new ValueNoise(_interpolator, _noiseSettings).GetNoise(vec) * amp;
+                _noiseSettings.Seed--;
             }
 
             return sum * _noiseSettings.FractalBounding;
