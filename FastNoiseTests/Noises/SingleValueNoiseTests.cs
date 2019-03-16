@@ -3,30 +3,30 @@ using FastNoise.Noises;
 using FastNoise.Interpolators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using FastNoise.Settings;
 
 namespace FastNoiseTests.Noises
 {
     [TestClass]
     public class SingleValueNoiseTests
     {
-        SingleValueNoise noise;
-        int seed = 1337;
+        ValueNoise noise;
         float epsilon = 0.00001f;
 
         [TestInitialize]
         public void Initialize()
         {
-            noise = new SingleValueNoise(new LinearInterpolator());
+            noise = new ValueNoise(new LinearInterpolator(), new DefaultSettings());
         }
 
         [TestMethod]
         public void SingleValueNoise_ShouldReturnProperValueForGetNoise()
         {
-            var val1 = noise.GetNoise(seed, new Vector3(0, 0, 0));
-            var val2 = noise.GetNoise(seed, new Vector3(1, 1, 1));
-            var val3 = noise.GetNoise(seed, new Vector3(2, 2, 2));
-            var val4 = noise.GetNoise(seed, new Vector3(1, 2, 3));
-            var val5 = noise.GetNoise(seed, new Vector3(3, 2, 1));
+            var val1 = noise.GetNoise(new Vector3(0, 0, 0));
+            var val2 = noise.GetNoise(new Vector3(1, 1, 1));
+            var val3 = noise.GetNoise(new Vector3(2, 2, 2));
+            var val4 = noise.GetNoise(new Vector3(1, 2, 3));
+            var val5 = noise.GetNoise(new Vector3(3, 2, 1));
 
             //Assert.AreEqual(val1, 0);
             //Assert.AreEqual(val2, 0);

@@ -3,55 +3,67 @@ using System.Runtime.CompilerServices;
 
 namespace FastNoise
 {
-    public class NoiseHelper
+    internal class NoiseHelper
     {
         public const Int16 FN_INLINE = 256;
         public static int Octaves = 3;
-        public static double Frequency = 0.01;
-        public static double Lacunarity = 2.0;
-        public static double Gain = 0.5;
-	    public static double FractalBounding;
+        public static float Frequency = 0.01f;
+        public static float Lacunarity = 2.0f;
+        public static float Gain = 0.5f;
+        public static float FractalBounding;
+
+        public const float Cubic3DBounding = 1 / (1.5f * 1.5f * 1.5f);
+        public const float Cubic2DBinding = 1 / (1.5f * 1.5f);
 
         [MethodImplAttribute(FN_INLINE)]
-        public static int FastFloor(double f) { return (f >= 0 ? (int)f : (int)f - 1); }
+        public static int FastFloor(float f) { return (f >= 0 ? (int)f : (int)f - 1); }
 
         [MethodImplAttribute(FN_INLINE)]
-        public static int FastRound(double f) { return (f >= 0) ? (int)(f + 0.5) : (int)(f - 0.5); }
+        public static int FastRound(float f) { return (f >= 0) ? (int)(f + 0.5) : (int)(f - 0.5); }
 
         [MethodImplAttribute(FN_INLINE)]
-        public static double Lerp(double a, double b, double t) { return a + t * (b - a); }
+        public static float Lerp(float a, float b, float t) { return a + t * (b - a); }
 
         [MethodImplAttribute(FN_INLINE)]
-        public static double InterpHermiteFunc(double t) { return t * t * (3 - 2 * t); }
+        public static float InterpHermiteFunc(float t) { return t * t * (3 - 2 * t); }
 
         [MethodImplAttribute(FN_INLINE)]
-        public static double InterpQuinticFunc(double t) { return t * t * t * (t * (t * 6 - 15) + 10); }
+        public static float InterpQuinticFunc(float t) { return t * t * t * (t * (t * 6 - 15) + 10); }
 
         [MethodImplAttribute(FN_INLINE)]
-        public static double CubicLerp(double a, double b, double c, double d, double t)
+        public static float CubicLerp(float a, float b, float c, float d, float t)
         {
-            double p = (d - c) - (a - b);
+            float p = (d - c) - (a - b);
             return t * t * t * p + t * t * ((a - b) - p) + t * (c - a) + b;
         }
 
         [MethodImplAttribute(FN_INLINE)]
         public static Vector3 GetVectorTimesFrequencyFor(Vector3 vec) => new Vector3(vec.x * Frequency, vec.y * Frequency, vec.z * Frequency);
 
+        [MethodImplAttribute(FN_INLINE)]
+        public static int FloatCast2Int(float f)
+        {
+            var i = BitConverter.DoubleToInt64Bits(f);
+
+            return (int)(i ^ (i >> 32));
+        }
+
         private static readonly Vector2[] GRAD_2D = {
         new Vector2(-1,-1), new Vector2( 1,-1), new Vector2(-1, 1), new Vector2( 1, 1),
         new Vector2( 0,-1), new Vector2(-1, 0), new Vector2( 0, 1), new Vector2( 1, 0),
-    };
+        };
 
         private static readonly Vector3[] GRAD_3D = {
         new Vector3( 1, 1, 0), new Vector3(-1, 1, 0), new Vector3( 1,-1, 0), new Vector3(-1,-1, 0),
         new Vector3( 1, 0, 1), new Vector3(-1, 0, 1), new Vector3( 1, 0,-1), new Vector3(-1, 0,-1),
         new Vector3( 0, 1, 1), new Vector3( 0,-1, 1), new Vector3( 0, 1,-1), new Vector3( 0,-1,-1),
         new Vector3( 1, 1, 0), new Vector3( 0,-1, 1), new Vector3(-1, 1, 0), new Vector3( 0,-1,-1),
-    };
+        };
+
         //public void CalculateFractalBounding()
         //{
-        //    double amp = m_gain;
-        //    double ampFractal = 1;
+        //    float amp = m_gain;
+        //    float ampFractal = 1;
         //    for (int i = 1; i < m_octaves; i++)
         //    {
         //        ampFractal += amp;
@@ -109,28 +121,28 @@ namespace FastNoise
         }
 
         [MethodImplAttribute(FN_INLINE)]
-        public static double ValCoord2D(int seed, int x, int y)
+        public static float ValCoord2D(int seed, int x, int y)
         {
             int n = seed;
             n ^= X_PRIME * x;
             n ^= Y_PRIME * y;
 
-            return (n * n * n * 60493) / 2147483648.0;
+            return (n * n * n * 60493) / 2147483648.0f;
         }
 
         [MethodImplAttribute(FN_INLINE)]
-        public static double ValCoord3D(int seed, int x, int y, int z)
+        public static float ValCoord3D(int seed, int x, int y, int z)
         {
             int n = seed;
             n ^= X_PRIME * x;
             n ^= Y_PRIME * y;
             n ^= Z_PRIME * z;
 
-            return (n * n * n * 60493) / 2147483648.0;
+            return (n * n * n * 60493) / 2147483648.0f;
         }
 
         [MethodImplAttribute(FN_INLINE)]
-        public static double ValCoord4D(int seed, int x, int y, int z, int w)
+        public static float ValCoord4D(int seed, int x, int y, int z, int w)
         {
             int n = seed;
             n ^= X_PRIME * x;
@@ -138,11 +150,11 @@ namespace FastNoise
             n ^= Z_PRIME * z;
             n ^= W_PRIME * w;
 
-            return (n * n * n * 60493) / 2147483648.0;
+            return (n * n * n * 60493) / 2147483648.0f;
         }
 
         [MethodImplAttribute(FN_INLINE)]
-        public static double GradCoord2D(int seed, int x, int y, double xd, double yd)
+        public static float GradCoord2D(int seed, int x, int y, float xd, float yd)
         {
             int hash = seed;
             hash ^= X_PRIME * x;
@@ -157,7 +169,7 @@ namespace FastNoise
         }
 
         [MethodImplAttribute(FN_INLINE)]
-        public static double GradCoord3D(int seed, int x, int y, int z, double xd, double yd, double zd)
+        public static float GradCoord3D(int seed, int x, int y, int z, float xd, float yd, float zd)
         {
             int hash = seed;
             hash ^= X_PRIME * x;
@@ -173,7 +185,7 @@ namespace FastNoise
         }
 
         [MethodImplAttribute(FN_INLINE)]
-        public static double GradCoord4D(int seed, int x, int y, int z, int w, double xd, double yd, double zd, double wd)
+        public static float GradCoord4D(int seed, int x, int y, int z, int w, float xd, float yd, float zd, float wd)
         {
             int hash = seed;
             hash ^= X_PRIME * x;
@@ -185,7 +197,7 @@ namespace FastNoise
             hash = (hash >> 13) ^ hash;
 
             hash &= 31;
-            double a = yd, b = zd, c = wd;            // X,Y,Z
+            float a = yd, b = zd, c = wd;            // X,Y,Z
             switch (hash >> 3)
             {          // OR, DEPENDING ON HIGH ORDER 2 BITS:
                 case 1: a = wd; b = xd; c = yd; break;     // W,X,Y

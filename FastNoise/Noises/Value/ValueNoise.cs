@@ -5,22 +5,25 @@ using System.Text;
 
 namespace FastNoise.Noises
 {
-    public class SingleValueNoise : INoise
+    public class ValueNoise : INoise
     {
-        private readonly IInterpolator _interpolator;
+        private IInterpolator _interpolator;
+        private INoiseSettings _noiseSettings;
 
-        public SingleValueNoise(IInterpolator interpolator)
+        public ValueNoise(IInterpolator interpolator, INoiseSettings noiseSettings)
         {
             _interpolator = interpolator;
+            _noiseSettings = noiseSettings;
         }
 
-        public double GetNoise(int seed, Vector2 vec)
+        public double GetNoise(Vector2 vec)
         {
             throw new NotImplementedException();
         }
 
-        public double GetNoise(int seed, Vector3 vec)
+        public double GetNoise(Vector3 vec)
         {
+            var seed = _noiseSettings.Seed;
             vec = NoiseHelper.GetVectorTimesFrequencyFor(vec);
 
             int x0 = NoiseHelper.FastFloor(vec.x);
