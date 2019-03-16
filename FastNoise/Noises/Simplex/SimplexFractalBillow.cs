@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FastNoise.Noises.Value
+namespace FastNoise.Noises.Simplex
 {
-    public class ValueFractalBillow : INoise
+    public class SimplexFractalBillow : INoise
     {
         private INoiseSettings _settings;
 
-        public ValueFractalBillow(INoiseSettings settings)
+        public SimplexFractalBillow(INoiseSettings settings)
         {
             _settings = settings;
         }
