@@ -7,11 +7,13 @@ namespace FastNoise.Noises
 {
     public class SingleValueNoise : INoise
     {
-        private readonly IInterpolator _interpolator;
+        private IInterpolator _interpolator;
+        private INoiseSettings _noiseSettings;
 
-        public SingleValueNoise(IInterpolator interpolator)
+        public SingleValueNoise(IInterpolator interpolator, INoiseSettings noiseSettings)
         {
             _interpolator = interpolator;
+            _noiseSettings = noiseSettings;
         }
 
         public double GetNoise(int seed, Vector2 vec)
