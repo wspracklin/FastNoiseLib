@@ -14,12 +14,12 @@ namespace FastNoise.Noises.WhiteNoise
             _settings = settings;
         }
 
-        public double GetNoise(Vector2 vec)
+        public float GetNoise(Vector2 vec)
         {
             throw new NotImplementedException();
         }
 
-        public double GetNoise(Vector3 vec)
+        public float GetNoise(Vector3 vec)
         {
             int xi = NoiseHelper.FloatCast2Int(vec.x);
             int yi = NoiseHelper.FloatCast2Int(vec.y);

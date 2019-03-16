@@ -7,14 +7,14 @@ namespace FastNoise
     {
         int Seed { get; set; }
         int Octaves { get; set; }
-        double Frequency { get; set; }
-        double Lacunarity { get; set; }
-        double Gain { get; set; }
-        double FractalBounding { get; set; }
+        float Frequency { get; set; }
+        float Lacunarity { get; set; }
+        float Gain { get; set; }
+        float FractalBounding { get; set; }
 
-        double F3 { get; set; }
-        double G3 { get; set; }
-        double G33 { get; set; }
+        float F3 { get; set; }
+        float G3 { get; set; }
+        float G33 { get; set; }
 
         INoise Noise { get; set; }
         IInterpolator Interpolator { get; set; }

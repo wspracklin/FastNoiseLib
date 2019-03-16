@@ -13,7 +13,7 @@ namespace FastNoise.Noises.Cubic
             _settings = settings;
         }
 
-        public double GetNoise(Vector2 vec)
+        public float GetNoise(Vector2 vec)
         {
             var x = vec.x;
             var y = vec.y;
@@ -28,8 +28,8 @@ namespace FastNoise.Noises.Cubic
             int x3 = x1 + 2;
             int y3 = y1 + 2;
 
-            double xs = x - (double)x1;
-            double ys = y - (double)y1;
+            float xs = x - (float)x1;
+            float ys = y - (float)y1;
 
             var seed = _settings.Seed;
             return NoiseHelper.CubicLerp(
@@ -44,7 +44,7 @@ namespace FastNoise.Noises.Cubic
                        ys) * NoiseHelper.Cubic2DBinding;
         }
 
-        public double GetNoise(Vector3 vec)
+        public float GetNoise(Vector3 vec)
         {
             var x = vec.x;
             var y = vec.y;
@@ -64,9 +64,9 @@ namespace FastNoise.Noises.Cubic
             int y3 = y1 + 2;
             int z3 = z1 + 2;
 
-            double xs = x - (double)x1;
-            double ys = y - (double)y1;
-            double zs = z - (double)z1;
+            float xs = x - (float)x1;
+            float ys = y - (float)y1;
+            float zs = z - (float)z1;
 
             var seed = _settings.Seed;
 

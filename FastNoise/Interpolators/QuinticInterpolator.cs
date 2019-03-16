@@ -15,6 +15,6 @@ namespace FastNoise.Interpolators
             return new Vector3(x, y, z);
         }
 
-        private static double InterpQuinticFunc(double t) { return t * t * t * (t * (t * 6 - 15) + 10); }
+        private static float InterpQuinticFunc(float t) { return t * t * t * (t * (t * 6 - 15) + 10); }
     }
 }

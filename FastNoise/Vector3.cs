@@ -2,8 +2,8 @@
 {
     public struct Vector3
     {
-        public readonly double x, y, z;
-        public Vector3(double x, double y, double z)
+        public readonly float x, y, z;
+        public Vector3(float x, float y, float z)
         {
             this.x = x;
             this.y = y;
@@ -18,7 +18,7 @@
         {
             return new Vector3(a.x + b.x, a.y + b.y, a.z + b.z);
         }
-        public static Vector3 operator *(Vector3 a, double b)
+        public static Vector3 operator *(Vector3 a, float b)
         {
             return new Vector3(a.x * b, a.y * b, a.z * b);
         }

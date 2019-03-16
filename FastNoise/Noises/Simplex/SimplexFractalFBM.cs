@@ -13,19 +13,19 @@ namespace FastNoise.Noises.Simplex
             _settings = settings;
         }
 
-        public double GetNoise(Vector2 vec)
+        public float GetNoise(Vector2 vec)
         {
             throw new NotImplementedException();
         }
 
-        public double GetNoise(Vector3 vec)
+        public float GetNoise(Vector3 vec)
         {
             var x = vec.x;
             var y = vec.y;
             var z = vec.z;
 
-            double sum = new SimplexNoise(_settings).GetNoise(vec);
-            double amp = 1;
+            float sum = new SimplexNoise(_settings).GetNoise(vec);
+            float amp = 1;
 
             var originalSeed = _settings.Seed;
 

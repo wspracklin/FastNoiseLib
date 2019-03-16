@@ -2,8 +2,8 @@
 {
     public interface IWhiteNoise
     {
-        double GetWhiteNoise(double x, double y, double z, double w);
-        double GetWhiteNoise(double x, double y, double z);
-        double GetWhiteNoise(double x, double y);
+        float GetWhiteNoise(float x, float y, float z, float w);
+        float GetWhiteNoise(float x, float y, float z);
+        float GetWhiteNoise(float x, float y);
     }
 }

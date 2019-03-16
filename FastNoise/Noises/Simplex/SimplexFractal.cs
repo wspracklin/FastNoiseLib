@@ -6,12 +6,12 @@ namespace FastNoise.Noises.Simplex
 {
     public class SimplexFractal : INoise
     {
-        public double GetNoise(Vector2 vec)
+        public float GetNoise(Vector2 vec)
         {
             throw new NotImplementedException();
         }
 
-        public double GetNoise(Vector3 vec)
+        public float GetNoise(Vector3 vec)
         {
             throw new NotImplementedException();
         }

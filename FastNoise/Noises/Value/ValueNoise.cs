@@ -16,12 +16,12 @@ namespace FastNoise.Noises
             _noiseSettings = noiseSettings;
         }
 
-        public double GetNoise(Vector2 vec)
+        public float GetNoise(Vector2 vec)
         {
             throw new NotImplementedException();
         }
 
-        public double GetNoise(Vector3 vec)
+        public float GetNoise(Vector3 vec)
         {
             var seed = _noiseSettings.Seed;
             vec = NoiseHelper.GetVectorTimesFrequencyFor(vec);
@@ -38,7 +38,7 @@ namespace FastNoise.Noises
 
             Vector3 interpVector = _interpolator.Interpolate(vec, vec1);
 
-            //double xs, ys, zs;
+            //float xs, ys, zs;
             //switch (_interpolator)
             //{
             //    default:
@@ -59,13 +59,13 @@ namespace FastNoise.Noises
             //        break;
             //}
 
-            double xf00 = NoiseHelper.Lerp(NoiseHelper.ValCoord3D(seed, x0, y0, z0), NoiseHelper.ValCoord3D(seed, x1, y0, z0), interpVector.x);
-            double xf10 = NoiseHelper.Lerp(NoiseHelper.ValCoord3D(seed, x0, y1, z0), NoiseHelper.ValCoord3D(seed, x1, y1, z0), interpVector.x);
-            double xf01 = NoiseHelper.Lerp(NoiseHelper.ValCoord3D(seed, x0, y0, z1), NoiseHelper.ValCoord3D(seed, x1, y0, z1), interpVector.x);
-            double xf11 = NoiseHelper.Lerp(NoiseHelper.ValCoord3D(seed, x0, y1, z1), NoiseHelper.ValCoord3D(seed, x1, y1, z1), interpVector.x);
+            float xf00 = NoiseHelper.Lerp(NoiseHelper.ValCoord3D(seed, x0, y0, z0), NoiseHelper.ValCoord3D(seed, x1, y0, z0), interpVector.x);
+            float xf10 = NoiseHelper.Lerp(NoiseHelper.ValCoord3D(seed, x0, y1, z0), NoiseHelper.ValCoord3D(seed, x1, y1, z0), interpVector.x);
+            float xf01 = NoiseHelper.Lerp(NoiseHelper.ValCoord3D(seed, x0, y0, z1), NoiseHelper.ValCoord3D(seed, x1, y0, z1), interpVector.x);
+            float xf11 = NoiseHelper.Lerp(NoiseHelper.ValCoord3D(seed, x0, y1, z1), NoiseHelper.ValCoord3D(seed, x1, y1, z1), interpVector.x);
 
-            double yf0 = NoiseHelper.Lerp(xf00, xf10, interpVector.y);
-            double yf1 = NoiseHelper.Lerp(xf01, xf11, interpVector.y);
+            float yf0 = NoiseHelper.Lerp(xf00, xf10, interpVector.y);
+            float yf1 = NoiseHelper.Lerp(xf01, xf11, interpVector.y);
 
             return NoiseHelper.Lerp(yf0, yf1, interpVector.z);
         }

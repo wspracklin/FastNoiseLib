@@ -15,6 +15,6 @@ namespace FastNoise.Interpolators
             return new Vector3(x, y, z);
         }
 
-        private static double InterpHermiteFunc(double t) { return t * t * (3 - 2 * t); }
+        private static float InterpHermiteFunc(float t) { return t * t * (3 - 2 * t); }
     }
 }
