@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastNoise", "FastNoise\FastNoise.csproj", "{CBC71F1A-0CAD-49E0-95F7-7227DED38B18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastNoiseTests", "FastNoiseTests\FastNoiseTests.csproj", "{8AF1714A-B109-41AC-BA2A-BF899BE0242C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBC71F1A-0CAD-49E0-95F7-7227DED38B18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBC71F1A-0CAD-49E0-95F7-7227DED38B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBC71F1A-0CAD-49E0-95F7-7227DED38B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBC71F1A-0CAD-49E0-95F7-7227DED38B18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AF1714A-B109-41AC-BA2A-BF899BE0242C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AF1714A-B109-41AC-BA2A-BF899BE0242C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AF1714A-B109-41AC-BA2A-BF899BE0242C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AF1714A-B109-41AC-BA2A-BF899BE0242C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {246CB6BF-5978-42A8-A115-E7B1C198E40B}
+	EndGlobalSection
+EndGlobal
