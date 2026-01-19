@@ -2,7 +2,7 @@
 {
     public interface INoise
     {
-        float GetNoise(Vector2 vec);
-        float GetNoise(Vector3 vec);
+        double GetNoise(Vector2 vec);
+        double GetNoise(Vector3 vec);
     }
 }

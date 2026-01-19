@@ -1,27 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 using FastNoise.Interpolators;
 
 namespace FastNoise.Noises
 {
-    public class ValueFractalRigidMulti : INoise
+    public class PerlinFractalFBM : INoise
     {
         private readonly IInterpolator _interpolator;
         private readonly INoiseSettings _noiseSettings;
-        private readonly ValueNoise _valueNoise;
+        private readonly PerlinNoise _perlinNoise;
 
-        public ValueFractalRigidMulti(IInterpolator interpolator, INoiseSettings noiseSettings)
+        public PerlinFractalFBM(IInterpolator interpolator, INoiseSettings noiseSettings)
         {
             _interpolator = interpolator;
             _noiseSettings = noiseSettings;
-            _valueNoise = new ValueNoise(_interpolator, _noiseSettings);
+            _perlinNoise = new PerlinNoise(_interpolator, _noiseSettings);
         }
 
         public double GetNoise(Vector2 vec)
         {
-            double sum = 1 - Math.Abs(_valueNoise.GetNoise(vec));
+            double sum = _perlinNoise.GetNoise(vec);
             double amp = 1;
 
             var originalSeed = _noiseSettings.Seed;
@@ -31,10 +27,9 @@ namespace FastNoise.Noises
                 for (int i = 1; i < _noiseSettings.Octaves; i++)
                 {
                     vec *= _noiseSettings.Lacunarity;
-
                     amp *= _noiseSettings.Gain;
                     _noiseSettings.Seed++;
-                    sum -= (1 - Math.Abs(_valueNoise.GetNoise(vec))) * amp;
+                    sum += _perlinNoise.GetNoise(vec) * amp;
                 }
             }
             finally
@@ -42,12 +37,12 @@ namespace FastNoise.Noises
                 _noiseSettings.Seed = originalSeed;
             }
 
-            return sum;
+            return sum * _noiseSettings.FractalBounding;
         }
 
         public double GetNoise(Vector3 vec)
         {
-            double sum = 1 - Math.Abs(_valueNoise.GetNoise(vec));
+            double sum = _perlinNoise.GetNoise(vec);
             double amp = 1;
 
             var originalSeed = _noiseSettings.Seed;
@@ -57,10 +52,9 @@ namespace FastNoise.Noises
                 for (int i = 1; i < _noiseSettings.Octaves; i++)
                 {
                     vec *= _noiseSettings.Lacunarity;
-
                     amp *= _noiseSettings.Gain;
                     _noiseSettings.Seed++;
-                    sum -= (1 - Math.Abs(_valueNoise.GetNoise(vec))) * amp;
+                    sum += _perlinNoise.GetNoise(vec) * amp;
                 }
             }
             finally
@@ -68,7 +62,7 @@ namespace FastNoise.Noises
                 _noiseSettings.Seed = originalSeed;
             }
 
-            return sum;
+            return sum * _noiseSettings.FractalBounding;
         }
     }
 }
