@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
 
 namespace FastNoise.Noises
 {
-    public class SimplexFractalRigidMulti : INoise
+    public class CubicFractalRigidMulti : INoise
     {
         private readonly INoiseSettings _settings;
-        private readonly SimplexNoise _simplexNoise;
+        private readonly CubicNoise _cubicNoise;
 
-        public SimplexFractalRigidMulti(INoiseSettings settings)
+        public CubicFractalRigidMulti(INoiseSettings settings)
         {
             _settings = settings;
-            _simplexNoise = new SimplexNoise(settings);
+            _cubicNoise = new CubicNoise(settings);
         }
 
         public double GetNoise(Vector2 vec)
         {
-            double sum = 1 - Math.Abs(_simplexNoise.GetNoise(vec));
+            double sum = 1 - Math.Abs(_cubicNoise.GetNoise(vec));
             double amp = 1;
 
             var originalSeed = _settings.Seed;
@@ -30,7 +28,7 @@ namespace FastNoise.Noises
 
                     amp *= _settings.Gain;
                     _settings.Seed++;
-                    sum -= (1 - Math.Abs(_simplexNoise.GetNoise(vec))) * amp;
+                    sum -= (1 - Math.Abs(_cubicNoise.GetNoise(vec))) * amp;
                 }
             }
             finally
@@ -43,7 +41,7 @@ namespace FastNoise.Noises
 
         public double GetNoise(Vector3 vec)
         {
-            double sum = 1 - Math.Abs(_simplexNoise.GetNoise(vec));
+            double sum = 1 - Math.Abs(_cubicNoise.GetNoise(vec));
             double amp = 1;
 
             var originalSeed = _settings.Seed;
@@ -56,7 +54,7 @@ namespace FastNoise.Noises
 
                     amp *= _settings.Gain;
                     _settings.Seed++;
-                    sum -= (1 - Math.Abs(_simplexNoise.GetNoise(vec))) * amp;
+                    sum -= (1 - Math.Abs(_cubicNoise.GetNoise(vec))) * amp;
                 }
             }
             finally

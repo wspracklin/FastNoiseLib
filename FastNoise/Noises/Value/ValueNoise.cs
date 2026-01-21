@@ -7,8 +7,8 @@ namespace FastNoise.Noises
 {
     public class ValueNoise : INoise
     {
-        private IInterpolator _interpolator;
-        private INoiseSettings _noiseSettings;
+        private readonly IInterpolator _interpolator;
+        private readonly INoiseSettings _noiseSettings;
 
         public ValueNoise(IInterpolator interpolator, INoiseSettings noiseSettings)
         {
@@ -18,7 +18,22 @@ namespace FastNoise.Noises
 
         public double GetNoise(Vector2 vec)
         {
-            throw new NotImplementedException();
+            var seed = _noiseSettings.Seed;
+            vec = new Vector2(vec.x * _noiseSettings.Frequency, vec.y * _noiseSettings.Frequency);
+
+            int x0 = NoiseHelper.FastFloor(vec.x);
+            int y0 = NoiseHelper.FastFloor(vec.y);
+            int x1 = x0 + 1;
+            int y1 = y0 + 1;
+
+            var vec1 = new Vector2(x0, y0);
+
+            Vector2 interpVector = _interpolator.Interpolate(vec, vec1);
+
+            double xf0 = NoiseHelper.Lerp(NoiseHelper.ValCoord2D(seed, x0, y0), NoiseHelper.ValCoord2D(seed, x1, y0), interpVector.x);
+            double xf1 = NoiseHelper.Lerp(NoiseHelper.ValCoord2D(seed, x0, y1), NoiseHelper.ValCoord2D(seed, x1, y1), interpVector.x);
+
+            return NoiseHelper.Lerp(xf0, xf1, interpVector.y);
         }
 
         public double GetNoise(Vector3 vec)

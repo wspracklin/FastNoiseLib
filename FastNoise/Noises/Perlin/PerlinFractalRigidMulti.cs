@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+using System;
 using FastNoise.Interpolators;
 
 namespace FastNoise.Noises
 {
-    public class ValueFractalRigidMulti : INoise
+    public class PerlinFractalRigidMulti : INoise
     {
         private readonly IInterpolator _interpolator;
         private readonly INoiseSettings _noiseSettings;
-        private readonly ValueNoise _valueNoise;
+        private readonly PerlinNoise _perlinNoise;
 
-        public ValueFractalRigidMulti(IInterpolator interpolator, INoiseSettings noiseSettings)
+        public PerlinFractalRigidMulti(IInterpolator interpolator, INoiseSettings noiseSettings)
         {
             _interpolator = interpolator;
             _noiseSettings = noiseSettings;
-            _valueNoise = new ValueNoise(_interpolator, _noiseSettings);
+            _perlinNoise = new PerlinNoise(_interpolator, _noiseSettings);
         }
 
         public double GetNoise(Vector2 vec)
         {
-            double sum = 1 - Math.Abs(_valueNoise.GetNoise(vec));
+            double sum = 1 - Math.Abs(_perlinNoise.GetNoise(vec));
             double amp = 1;
 
             var originalSeed = _noiseSettings.Seed;
@@ -34,7 +31,7 @@ namespace FastNoise.Noises
 
                     amp *= _noiseSettings.Gain;
                     _noiseSettings.Seed++;
-                    sum -= (1 - Math.Abs(_valueNoise.GetNoise(vec))) * amp;
+                    sum -= (1 - Math.Abs(_perlinNoise.GetNoise(vec))) * amp;
                 }
             }
             finally
@@ -47,7 +44,7 @@ namespace FastNoise.Noises
 
         public double GetNoise(Vector3 vec)
         {
-            double sum = 1 - Math.Abs(_valueNoise.GetNoise(vec));
+            double sum = 1 - Math.Abs(_perlinNoise.GetNoise(vec));
             double amp = 1;
 
             var originalSeed = _noiseSettings.Seed;
@@ -60,7 +57,7 @@ namespace FastNoise.Noises
 
                     amp *= _noiseSettings.Gain;
                     _noiseSettings.Seed++;
-                    sum -= (1 - Math.Abs(_valueNoise.GetNoise(vec))) * amp;
+                    sum -= (1 - Math.Abs(_perlinNoise.GetNoise(vec))) * amp;
                 }
             }
             finally

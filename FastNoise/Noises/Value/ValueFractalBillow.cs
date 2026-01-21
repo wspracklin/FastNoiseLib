@@ -2,25 +2,71 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FastNoise.Noises.Value
+using FastNoise.Interpolators;
+
+namespace FastNoise.Noises
 {
     public class ValueFractalBillow : INoise
     {
-        private INoiseSettings _settings;
+        private readonly IInterpolator _interpolator;
+        private readonly INoiseSettings _noiseSettings;
+        private readonly ValueNoise _valueNoise;
 
-        public ValueFractalBillow(INoiseSettings settings)
+        public ValueFractalBillow(IInterpolator interpolator, INoiseSettings noiseSettings)
         {
-            _settings = settings;
+            _interpolator = interpolator;
+            _noiseSettings = noiseSettings;
+            _valueNoise = new ValueNoise(_interpolator, _noiseSettings);
         }
 
         public double GetNoise(Vector2 vec)
         {
-            throw new NotImplementedException();
+            double sum = Math.Abs(_valueNoise.GetNoise(vec)) * 2 - 1;
+            double amp = 1;
+
+            var originalSeed = _noiseSettings.Seed;
+
+            try
+            {
+                for (int i = 1; i < _noiseSettings.Octaves; i++)
+                {
+                    vec *= _noiseSettings.Lacunarity;
+                    amp *= _noiseSettings.Gain;
+                    _noiseSettings.Seed++;
+                    sum += (Math.Abs(_valueNoise.GetNoise(vec)) * 2 - 1) * amp;
+                }
+            }
+            finally
+            {
+                _noiseSettings.Seed = originalSeed;
+            }
+
+            return sum * _noiseSettings.FractalBounding;
         }
 
         public double GetNoise(Vector3 vec)
         {
-            throw new NotImplementedException();
+            double sum = Math.Abs(_valueNoise.GetNoise(vec)) * 2 - 1;
+            double amp = 1;
+
+            var originalSeed = _noiseSettings.Seed;
+
+            try
+            {
+                for (int i = 1; i < _noiseSettings.Octaves; i++)
+                {
+                    vec *= _noiseSettings.Lacunarity;
+                    amp *= _noiseSettings.Gain;
+                    _noiseSettings.Seed++;
+                    sum += (Math.Abs(_valueNoise.GetNoise(vec)) * 2 - 1) * amp;
+                }
+            }
+            finally
+            {
+                _noiseSettings.Seed = originalSeed;
+            }
+
+            return sum * _noiseSettings.FractalBounding;
         }
     }
 }

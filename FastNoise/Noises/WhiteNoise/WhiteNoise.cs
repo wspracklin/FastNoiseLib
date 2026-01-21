@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace FastNoise.Noises.WhiteNoise
+namespace FastNoise.Noises
 {
     public class WhiteNoise : INoise
     {
-        private INoiseSettings _settings;
+        private readonly INoiseSettings _settings;
 
         public WhiteNoise(INoiseSettings settings)
         {
@@ -16,7 +16,10 @@ namespace FastNoise.Noises.WhiteNoise
 
         public double GetNoise(Vector2 vec)
         {
-            throw new NotImplementedException();
+            int xi = NoiseHelper.FloatCast2Int(vec.x);
+            int yi = NoiseHelper.FloatCast2Int(vec.y);
+
+            return NoiseHelper.ValCoord2D(_settings.Seed, xi, yi);
         }
 
         public double GetNoise(Vector3 vec)

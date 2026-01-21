@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FastNoise.Noises.Cubic
+namespace FastNoise.Noises
 {
     public class CubicNoise : INoise
     {
-        private INoiseSettings _settings;
+        private readonly INoiseSettings _settings;
+
+        private const double CUBIC_2D_BOUNDING = 1 / (1.5 * 1.5);
+        private const double CUBIC_3D_BOUNDING = 1 / (1.5 * 1.5 * 1.5);
 
         public CubicNoise(INoiseSettings settings)
         {
@@ -15,8 +18,8 @@ namespace FastNoise.Noises.Cubic
 
         public double GetNoise(Vector2 vec)
         {
-            var x = vec.x;
-            var y = vec.y;
+            var x = vec.x * _settings.Frequency;
+            var y = vec.y * _settings.Frequency;
 
             int x1 = NoiseHelper.FastFloor(x);
             int y1 = NoiseHelper.FastFloor(y);
@@ -41,14 +44,14 @@ namespace FastNoise.Noises.Cubic
                            xs),
                        NoiseHelper.CubicLerp(NoiseHelper.ValCoord2D(seed, x0, y3), NoiseHelper.ValCoord2D(seed, x1, y3), NoiseHelper.ValCoord2D(seed, x2, y3), NoiseHelper.ValCoord2D(seed, x3, y3),
                            xs),
-                       ys) * NoiseHelper.Cubic2DBinding;
+                       ys) * CUBIC_2D_BOUNDING;
         }
 
         public double GetNoise(Vector3 vec)
         {
-            var x = vec.x;
-            var y = vec.y;
-            var z = vec.z;
+            var x = vec.x * _settings.Frequency;
+            var y = vec.y * _settings.Frequency;
+            var z = vec.z * _settings.Frequency;
 
             int x1 = NoiseHelper.FastFloor(x);
             int y1 = NoiseHelper.FastFloor(y);
@@ -95,7 +98,7 @@ namespace FastNoise.Noises.Cubic
                 NoiseHelper.CubicLerp(NoiseHelper.ValCoord3D(seed, x0, y2, z3), NoiseHelper.ValCoord3D(seed, x1, y2, z3), NoiseHelper.ValCoord3D(seed, x2, y2, z3), NoiseHelper.ValCoord3D(seed, x3, y2, z3), xs),
                 NoiseHelper.CubicLerp(NoiseHelper.ValCoord3D(seed, x0, y3, z3), NoiseHelper.ValCoord3D(seed, x1, y3, z3), NoiseHelper.ValCoord3D(seed, x2, y3, z3), NoiseHelper.ValCoord3D(seed, x3, y3, z3), xs),
                 ys),
-                zs) * NoiseHelper.Cubic3DBounding;
+                zs) * CUBIC_3D_BOUNDING;
         }
     }
 }
